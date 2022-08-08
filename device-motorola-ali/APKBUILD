@@ -1,0 +1,35 @@
+# Reference: <https://postmarketos.org/devicepkg>
+pkgname=device-motorola-ali
+pkgdesc="Motorola Moto G6"
+pkgver=0.1
+pkgrel=6
+url="https://postmarketos.org"
+license="MIT"
+arch="aarch64"
+options="!check !archcheck"
+depends="postmarketos-base linux-motorola-ali mkbootimg mesa-dri-gallium"
+makedepends="devicepkg-dev"
+source="deviceinfo"
+
+subpackages="
+	$pkgname-nonfree-firmware:nonfree_firmware
+"
+
+build() {
+	devicepkg_build $startdir $pkgname
+}
+
+package() {
+	devicepkg_package $startdir $pkgname
+}
+
+nonfree_firmware() {
+	pkgdesc="GPU/Wi-Fi/Bluetooth/Audio/Video/Modem firmware"
+	depends="firmware-motorola-ali msm-firmware-loader"
+	mkdir "$subpkgdir"
+}
+
+
+sha512sums="
+a62bd3c63cad190309d5d566612d10eb6d9283faa425bc93453b75822409d01138b1aa4f4b065e607e0161da2c0812a77199d7e362c699740d21d1ae67450388  deviceinfo
+"
